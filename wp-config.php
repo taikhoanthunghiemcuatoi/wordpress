@@ -18,18 +18,30 @@
  * @package WordPress
  */
 
+require_once 'dms/dms-functions.php';
+
 // ** MySQL settings - You can get this info from your web host ** //
+
+$dms_config =getenv('DMS_CONFIG');
+echo $dms_config;
+$filename = "dms-db.properties";
+dms_load_properties($dms_config . '/' . $filename);
+$dms_db_host = $GLOBALS['dms_params']['db_host'];
+$dms_db_name = $GLOBALS['dms_params']['db_name'];
+$dms_db_user = $GLOBALS['dms_params']['db_user'];
+$dms_db_password = $GLOBALS['dms_params']['db_password'];
+
 /** The name of the database for WordPress */
-define('DB_NAME', 'wordpress');
+define('DB_NAME', $dms_db_name);
 
 /** MySQL database username */
-define('DB_USER', 'user1');
+define('DB_USER', $dms_db_user);
 
 /** MySQL database password */
-define('DB_PASSWORD', 'user1');
+define('DB_PASSWORD', $dms_db_password);
 
 /** MySQL hostname */
-define('DB_HOST', 'localhost');
+define('DB_HOST', $dms_db_host);
 
 /** Database Charset to use in creating database tables. */
 define('DB_CHARSET', 'utf8');
@@ -77,7 +89,8 @@ $table_prefix  = 'wp_';
  *
  * @link https://codex.wordpress.org/Debugging_in_WordPress
  */
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
+define( 'WP_DEBUG_LOG', true );
 
 /* That's all, stop editing! Happy blogging. */
 
